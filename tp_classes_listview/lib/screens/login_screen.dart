@@ -1,4 +1,4 @@
-import 'package:to_do_list/screens/home_screen.dart';
+import 'package:tp_classes_listview/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,141 +11,65 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController userController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  
+
   bool hidePass = true;
-  String errorText = '';
   bool succesfulLogin = false;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.blue,
-                Colors.green,
-              ],
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.blue,
+              Colors.green,
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(
-              15.0,
-            ),
-            child: Center(
-              child: ListView(
-                children: [
-                  const SizedBox(height: 80),
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          CircleAvatar(
-                            radius: 80,
-                            backgroundImage: NetworkImage(
-                                "https://i.ibb.co/fXjRwdv/foto.png"),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 50),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      labelText: 'User',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      prefixIcon: const Icon(Icons.person, color: Colors.white),
-                    ),
-                    controller: userController,
-                  ),
-                  const SizedBox(height: 25),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    obscureText: hidePass,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      prefixIcon: const Icon(Icons.key, color: Colors.white),
-                      suffixIcon: IconButton(
-                        icon: hidePass
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                        onPressed: togglePasswordVisibility,
-                        color: Colors.white,
-                      ),
-                    ),
-                    controller: passController,
-                  ),
-                  const SizedBox(height: 60),
-                  Column(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightBlue,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 80, vertical: 15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(
+            15.0,
+          ),
+          child: Center(
+            child: ListView(
+              children: [
+                const SizedBox(height: 80),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 80,
+                          backgroundImage:
+                              NetworkImage("https://i.ibb.co/fXjRwdv/foto.png"),
                         ),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          String user = userController.text;
-                          String pass = passController.text;
-                          if (user.isEmpty || pass.isEmpty) {
-                            debugPrint('User or password not filled');
-                            setState(() =>
-                                errorText = 'User or password not filled');
-                          } else {
-                            //credentialUserData.forEach((element) { });
-                            for (var element in credentialUserData) {
-                              if (element.username == user &&
-                                  element.password == pass) {
-                                debugPrint('Succesful Login');
-                                succesfulLogin = true;
-                                context.pushNamed(HomeScreen.name,
-                                    extra: userController.text);
-                              }
-                            }
-                            if (succesfulLogin == false) {
-                              debugPrint('Failed Login');
-                              setState(() => errorText = 'Failed Login');
-                              passController.clear();
-                            }
-                          }
-                        },
-                      ),
-                      Text(
-                        errorText,
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 50),
+                loginTextField(
+                  'Mail',
+                  const Icon(Icons.person_rounded, color: Colors.white),
+                  mailController,
+                  false,
+                ),
+                const SizedBox(height: 25),
+                loginTextField(
+                  'Password',
+                  const Icon(Icons.person_rounded, color: Colors.white),
+                  passController,
+                  true,
+                ),
+                const SizedBox(height: 80),
+                checkLoginButton(),
+              ],
             ),
           ),
         ),
@@ -154,64 +78,138 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void togglePasswordVisibility() => setState(() => hidePass = !hidePass);
+
+  Widget loginTextField(String title, Icon icon,
+      TextEditingController controller, bool isPasswordField) {
+    return TextField(
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
+        labelText: title,
+        labelStyle: const TextStyle(color: Colors.white),
+        prefixIcon: icon,
+        suffixIcon: isPasswordField != false
+            ? IconButton(
+                icon: hidePass
+                    ? const Icon(Icons.visibility_off)
+                    : const Icon(Icons.visibility),
+                onPressed: togglePasswordVisibility,
+                color: Colors.white,
+              )
+            : null,
+      ),
+      controller: controller,
+      obscureText: isPasswordField != false ? hidePass : false,
+    );
+  }
+
+  Widget checkLoginButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.lightBlue,
+        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+      ),
+      child: const Text(
+        'Login',
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () {
+        handleLogin();
+      },
+    );
+  }
+
+  void handleLogin() {
+    String user = mailController.text;
+    String pass = passController.text;
+    if (user.isEmpty || pass.isEmpty) {
+      debugPrint('Mail or password not filled');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Mail or password not filled')),
+      );
+    } else {
+      //credentialUserData.forEach((element) { });
+      for (var element in credentialUserData) {
+        if (element.email == user && element.password == pass) {
+          debugPrint('Succesful Login');
+          succesfulLogin = true;
+          context.pushNamed(HomeScreen.name, extra: mailController.text);
+        }
+      }
+      if (succesfulLogin == false) {
+        debugPrint('Failed Login');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed Login')),
+        );
+        passController.clear();
+      }
+    }
+  }
 }
 
 class CredentialUserData {
-  final String username;
+  final String email;
   final String password;
   CredentialUserData({
-    required this.username,
+    required this.email,
     required this.password,
   });
 }
 
 List<CredentialUserData> credentialUserData = [
   CredentialUserData(
-    username: 'Jorge',
+    email: 'jorge@gmail.com',
     password: 'Jorge123',
   ),
   CredentialUserData(
-    username: 'Mateo',
+    email: 'mateo@gmail.com',
     password: 'Mat3o',
   ),
   CredentialUserData(
-    username: 'AliceSmith',
+    email: 'alicesmith@outlook.com',
     password: 'alice123',
   ),
   CredentialUserData(
-    username: 'BobJohnson',
+    email: 'bobjohnson@gmail.com',
     password: 'bob12345',
   ),
   CredentialUserData(
-    username: 'CarolWilliams',
+    email: 'carolwilliams@outlook.com',
     password: 'carol678',
   ),
   CredentialUserData(
-    username: 'DavidBrown',
+    email: 'davidbrown@gmail.com',
     password: 'david910',
   ),
   CredentialUserData(
-    username: 'EveJones',
+    email: 'evejones@outlook.com',
     password: 'eve234',
   ),
   CredentialUserData(
-    username: 'FrankGarcia',
+    email: 'frankgarcia@gmail.com',
     password: 'frank567',
   ),
   CredentialUserData(
-    username: 'GraceMartinez',
+    email: 'gracemartinez@outlook.com',
     password: 'grace890',
   ),
   CredentialUserData(
-    username: 'HankDavis',
+    email: 'hankdavis@gmail.com',
     password: 'hank112',
   ),
   CredentialUserData(
-    username: 'IvyRodriguez',
+    email: 'ivyrodriguez@outlook.com',
     password: 'ivy334',
   ),
   CredentialUserData(
-    username: 'JackWilson',
+    email: 'jackwilson@gmail.com',
     password: 'jack556',
   ),
 ];
