@@ -63,16 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListTile(
                           leading: IconButton(
                             onPressed: () {
-                              context.pushNamed(
-                                DescriptionScreen.name,
-                                extra: BooksInfo(
-                                  title: tile.title,
-                                  autor: tile.autor,
-                                  description: tile.description,
-                                  publishDate: tile.publishDate,
-                                  imageURL: tile.imageURL,
-                                ),
-                              );
+                              _goToBookDetails(context, tile);
                             },
                             icon: const Icon(Icons.open_in_new),
                           ),
@@ -105,6 +96,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _goToBookDetails(BuildContext context, BooksInfo tile) {
+    context.pushNamed(
+      DescriptionScreen.name,
+      extra: BooksInfo(
+        title: tile.title,
+        autor: tile.autor,
+        description: tile.description,
+        publishDate: tile.publishDate,
+        imageURL: tile.imageURL,
       ),
     );
   }
@@ -156,8 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       _validURL =
-          Uri.tryParse(imageURLController.text)?.hasAbsolutePath ??
-              false;
+          Uri.tryParse(imageURLController.text)?.hasAbsolutePath ?? false;
       if (_validURL == true) {
         setState(() {
           booksList.add(

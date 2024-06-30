@@ -19,7 +19,7 @@ final appRouter = GoRouter(
       name: DescriptionScreen.name,
       path: '/description',
       builder: (context, state) => DescriptionScreen(
-        localBooksInfo: state.extra as BooksInfo,
+        localBookInfo: state.extra as BooksInfo,
       ),
     ),
   ],

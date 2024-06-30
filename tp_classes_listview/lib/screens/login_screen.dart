@@ -121,36 +121,37 @@ class _LoginScreenState extends State<LoginScreen> {
         style: TextStyle(color: Colors.white),
       ),
       onPressed: () {
-        handleLogin();
+        handleLogin;
       },
     );
   }
 
   void handleLogin() {
-    String user = mailController.text;
+    String mail = mailController.text;
     String pass = passController.text;
-    if (user.isEmpty || pass.isEmpty) {
-      debugPrint('Mail or password not filled');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Mail or password not filled')),
-      );
+    if (mail.isEmpty || pass.isEmpty) {
+      createSnackBar('Mail or password not filled');
     } else {
       //credentialUserData.forEach((element) { });
       for (var element in credentialUserData) {
-        if (element.email == user && element.password == pass) {
-          debugPrint('Succesful Login');
+        if (element.email == mail && element.password == pass) {
+          createSnackBar('Succesful Login');
           succesfulLogin = true;
           context.pushNamed(HomeScreen.name, extra: mailController.text);
         }
       }
       if (succesfulLogin == false) {
-        debugPrint('Failed Login');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed Login')),
-        );
+        createSnackBar('Failed Login');
         passController.clear();
       }
     }
+  }
+
+  void createSnackBar(String text) {
+    debugPrint(text);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text)),
+    );
   }
 }
 

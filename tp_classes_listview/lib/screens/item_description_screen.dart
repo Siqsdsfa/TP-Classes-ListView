@@ -3,10 +3,10 @@ import 'package:tp_classes_listview/screens/home_screen.dart';
 
 class DescriptionScreen extends StatelessWidget {
   static const String name = 'description';
-  final BooksInfo? localBooksInfo;
+  final BooksInfo? localBookInfo;
   const DescriptionScreen(
       {super.key,
-      this.localBooksInfo});
+      this.localBookInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +23,22 @@ class DescriptionScreen extends StatelessWidget {
         child: ListView(
           children: [
             Text(
-              '${localBooksInfo?.title} (${localBooksInfo?.publishDate})',
+              '${localBookInfo?.title} (${localBookInfo?.publishDate})',
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 5),
-            Text('${localBooksInfo?.autor}', style: const TextStyle(fontSize: 20)),
+            Text('${localBookInfo?.autor}', style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             Image.network(
-              '${localBooksInfo?.imageURL}',
+              '${localBookInfo?.imageURL}',
               height: 400,
               width: double.maxFinite,
             ),
             const SizedBox(height: 10),
-            Text('${localBooksInfo?.description}', style: const TextStyle(fontSize: 15)),
+            Text('${localBookInfo?.description}', style: const TextStyle(fontSize: 15)),
           ],
         ),
       ),
