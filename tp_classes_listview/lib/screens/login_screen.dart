@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
         style: TextStyle(color: Colors.white),
       ),
       onPressed: () {
-        handleLogin;
+        handleLogin();
       },
     );
   }
