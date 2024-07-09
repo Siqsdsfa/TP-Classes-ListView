@@ -287,7 +287,7 @@ List<BooksInfo> booksList = [
         "For David Goggins, childhood was a nightmare--poverty, prejudice, and physical abuse colored his days and haunted his nights. But through self-discipline, mental toughness, and hard work, Goggins transformed himself from a depressed, overweight young man with no future into a US Armed Forces icon and one of the world's top endurance athletes. The only man in history to complete elite training as a Navy SEAL, Army Ranger, and Air Force tactical air controller, he went on to set records in numerous endurance events, inspiring Outside magazine to name him the Fittest (Real) Man in America.",
     publishDate: '2018',
     imageURL:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Crimeandpunishmentcover.png/220px-Crimeandpunishmentcover.png',
+        'https://heritagebooks.com.np/wp-content/uploads/2022/04/cant-hurt-me.jpg',
   ),
   BooksInfo(
     title: 'Crime and Punishment',
