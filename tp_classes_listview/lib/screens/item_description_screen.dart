@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tp_classes_listview/screens/home_screen.dart';
+import 'package:tp_classes_listview/data/bookslist.dart';
 
 class DescriptionScreen extends StatelessWidget {
   static const String name = 'description';
   final BooksInfo? localBookInfo;
-  const DescriptionScreen(
-      {super.key,
-      this.localBookInfo});
+  const DescriptionScreen({super.key, this.localBookInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +28,27 @@ class DescriptionScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            Text('${localBookInfo?.autor}', style: const TextStyle(fontSize: 20)),
+            Text('${localBookInfo?.autor}',
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
-            Image.network(
-              '${localBookInfo?.imageURL}',
-              height: 400,
-              width: double.maxFinite,
-            ),
+            tryCreateImage('${localBookInfo?.imageURL}'),
             const SizedBox(height: 10),
-            Text('${localBookInfo?.description}', style: const TextStyle(fontSize: 15)),
+            Text('${localBookInfo?.description}',
+                style: const TextStyle(fontSize: 15)),
           ],
         ),
       ),
+    );
+  }
+
+  Widget tryCreateImage(String url) {
+    return Image.network(
+      url,
+      height: 400,
+      width: double.maxFinite,
+      errorBuilder: (context, error, stackTrace) {
+        return const Icon(Icons.image_not_supported, size: 200);
+      },
     );
   }
 }
