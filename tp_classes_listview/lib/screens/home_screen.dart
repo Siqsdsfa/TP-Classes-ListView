@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 tile.title,
                                 style: const TextStyle(fontSize: 20),
+                                textAlign: TextAlign.center,
                               ),
                               tryCreateImage(tile.imageURL),
                             ],
