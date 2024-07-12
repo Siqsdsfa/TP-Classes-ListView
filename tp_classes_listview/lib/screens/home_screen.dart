@@ -202,6 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         });
+
         clearTextControllers();
         Navigator.of(context).pop();
       } else {
